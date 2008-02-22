@@ -18,7 +18,6 @@ BuildRequires:  libflac-devel libvorbis-devel libwavpack-devel libmad-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-
 Traverso is a free, cross platform multitrack audio recording and editing suite,
 with an innovative and easy to master User Interface. It's suited for both
 the professional and home user, who needs a robust and solid DAW.
