@@ -1,6 +1,6 @@
 %define name    traverso
 %define version 0.42.0
-%define release %mkrel 1
+%define release %mkrel 2
 Name:           %{name}
 Version:        %{version}
 Release:        %{release}
@@ -35,15 +35,21 @@ chmod -x ChangeLog INSTALL TODO
 
 %install
 install -D -m 0755 build/bin/%{name} %{buildroot}%{_bindir}/%{name}
-install -D -m 0755 resources/images/traverso-logo.svg %{buildroot}%{_datadir}/pixmaps/%{name}.svg
+install -D -m 0755 resources/images/traverso-logo.svg %{buildroot}%{_iconsdir}/icons/hicolor/apps/%{name}.svg
 install -D -m 0755 %{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
 rm -rf %{buildroot}
+
+%post
+%update_menus
+
+%postun
+%clean_menus
 
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYRIGHT ChangeLog HISTORY README TODO
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/pixmaps/%{name}.svg
+%{_iconsdir}/icons/hicolor/apps/%{name}.svg
