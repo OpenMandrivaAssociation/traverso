@@ -17,7 +17,7 @@ Patch4:		traverso-0.42.0-fix-underlink.patch
 BuildRequires:  cmake qt4-devel glib2-devel fftw-devel
 BuildRequires:  libalsa-devel libjack-devel libportaudio-devel 
 BuildRequires:  libsndfile-devel libsamplerate-devel redland-devel 
-BuildRequires:  rasqal-devel libraptor-devel desktop-file-utils
+BuildRequires:  rasqal-devel raptor-devel desktop-file-utils
 BuildRequires:  libflac-devel libvorbis-devel libwavpack-devel libmad-devel
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
