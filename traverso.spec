@@ -38,7 +38,8 @@ the professional and home user, who needs a robust and solid DAW.
 rm -fr %buildroot
 %makeinstall_std -C build
 
-cp -fr resources/freedesktop/icons %buildroot%_datadir
+mkdir -p %buildroot%_datadir
+cp -fr resources/freedesktop/icons %buildroot%_datadir/
 install -D resources/traverso.desktop %buildroot%_datadir/applications/%name.desktop
 install -D resources/x-traverso.xml %buildroot%_datadir/mime/packages/x-traverso.xml
 
