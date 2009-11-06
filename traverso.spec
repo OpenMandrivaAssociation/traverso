@@ -1,6 +1,6 @@
 %define name    traverso
-%define version 0.42.0
-%define release %mkrel 7
+%define version 0.49.1
+%define release %mkrel 1
 Name:           %{name}
 Version:        %{version}
 Release:        %{release}
@@ -9,11 +9,7 @@ License:        GPLv2+ and LGPL2+
 Group:          Sound
 Summary:        Cross Platform Multitrack Audio Recording and Editing Suite
 Source:         http://traverso-daw.org/download/releases/current/%{name}-%{version}.tar.gz
-Patch0:		traverso-0.42.0-gcc43.patch
-Patch1:		traverso-0.42.0-strictaliasing.patch
-Patch2:		traverso-0.42.0-nojack.patch
-Patch3:		traverso-0.42.0-fix-cmake.patch
-Patch4:		traverso-0.42.0-fix-underlink.patch
+Patch0:		traverso-0.49.1-fix-str-fmt.patch
 BuildRequires:  cmake qt4-devel glib2-devel fftw-devel
 BuildRequires:  libalsa-devel libjack-devel libportaudio-devel 
 BuildRequires:  libsndfile-devel libsamplerate-devel redland-devel 
@@ -29,12 +25,7 @@ the professional and home user, who needs a robust and solid DAW.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p0
-%patch4 -p0
-chmod -x ChangeLog INSTALL TODO
+%patch0 -p0
 
 %build
 %cmake_qt4 -DWANT_MP3_DECODE=ON \
@@ -45,26 +36,19 @@ chmod -x ChangeLog INSTALL TODO
 
 %install
 rm -fr %buildroot
-install -D -m 0755 build/bin/%{name} %{buildroot}%{_bindir}/%{name}
-install -D -m 0755 resources/images/traverso-logo.svg %{buildroot}%{_iconsdir}/icons/hicolor/apps/%{name}.svg
-install -D -m 0755 %{name}.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+%makeinstall_std -C build
+
+cp -fr resources/freedesktop/icons %buildroot%_datadir
+install -D resources/traverso.desktop %buildroot%_datadir/applications/%name.desktop
+install -D resources/x-traverso.xml %buildroot%_datadir/mime/packages/x-traverso.xml
 
 %clean
 rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post
-%update_menus
-%endif
-
-%if %mdkversion < 200900
-%postun
-%clean_menus
-%endif
 
 %files
 %defattr(-,root,root)
 %doc AUTHORS COPYRIGHT ChangeLog HISTORY README TODO
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
-%{_iconsdir}/icons/hicolor/apps/%{name}.svg
+%{_datadir}/mime/packages/*.xml
+%{_iconsdir}/*/*/*
