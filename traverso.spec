@@ -1,6 +1,6 @@
 %define name    traverso
 %define version 0.49.1
-%define release %mkrel 1
+%define release %mkrel 2
 Name:           %{name}
 Version:        %{version}
 Release:        %{release}
