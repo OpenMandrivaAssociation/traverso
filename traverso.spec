@@ -1,6 +1,6 @@
 %define name    traverso
 %define version 0.49.1
-%define release %mkrel 2
+%define release %mkrel 3
 Name:           %{name}
 Version:        %{version}
 Release:        %{release}
@@ -15,6 +15,7 @@ BuildRequires:  libalsa-devel libjack-devel libportaudio-devel
 BuildRequires:  libsndfile-devel libsamplerate-devel redland-devel 
 BuildRequires:  rasqal-devel raptor-devel desktop-file-utils
 BuildRequires:  libflac-devel libvorbis-devel libwavpack-devel libmad-devel
+BuildRequires:  slv2-devel >= 0.6.1
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -29,9 +30,10 @@ the professional and home user, who needs a robust and solid DAW.
 
 %build
 %cmake_qt4 -DWANT_MP3_DECODE=ON \
-       -DWANT_MP3_ENCODE=OFF \
-       -DWANT_OPENGL=ON \
-       -DWANT_PORTAUDIO=ON 
+           -DWANT_MP3_ENCODE=OFF \
+           -DWANT_OPENGL=ON \
+           -DWANT_PORTAUDIO=ON \
+           -DUSE_SYSTEM_SLV2_LIBRARY=ON
 %make
 
 %install
