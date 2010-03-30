@@ -1,6 +1,6 @@
 %define name    traverso
 %define version 0.49.1
-%define release %mkrel 3
+%define release %mkrel 4
 Name:           %{name}
 Version:        %{version}
 Release:        %{release}
@@ -40,10 +40,10 @@ the professional and home user, who needs a robust and solid DAW.
 rm -fr %buildroot
 %makeinstall_std -C build
 
-mkdir -p %buildroot%_datadir
-cp -fr resources/freedesktop/icons %buildroot%_datadir/
-install -D resources/traverso.desktop %buildroot%_datadir/applications/%name.desktop
-install -D resources/x-traverso.xml %buildroot%_datadir/mime/packages/x-traverso.xml
+mkdir -p %{buildroot}%{_iconsbasedir}
+cp -fr resources/freedesktop/icons/* %{buildroot}%{_iconsbasedir}/
+install -D resources/traverso.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
+install -D resources/x-traverso.xml %{buildroot%{_datadir}/mime/packages/x-traverso.xml
 
 %clean
 rm -rf %{buildroot}
@@ -54,4 +54,4 @@ rm -rf %{buildroot}
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/*.xml
-%{_iconsdir}/*/*/*
+%{_iconsbasedir}/*/*/*
