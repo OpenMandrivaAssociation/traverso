@@ -5,7 +5,7 @@ Name:           %{name}
 Version:        %{version}
 Release:        %{release}
 Url:            http://traverso-daw.org/
-License:        GPLv2+ and LGPL2+
+License:        GPLv2+ and LGPLv2+
 Group:          Sound
 Summary:        Cross Platform Multitrack Audio Recording and Editing Suite
 Source:         http://traverso-daw.org/download/releases/current/%{name}-%{version}.tar.gz
@@ -20,13 +20,16 @@ BuildRequires:  slv2-devel >= 0.6.1
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-Traverso is a free, cross platform multitrack audio recording and editing suite,
-with an innovative and easy to master User Interface. It's suited for both
-the professional and home user, who needs a robust and solid DAW.
+Traverso is a free, cross platform multi-track audio recording and editing
+suite, with an innovative and easy to master User Interface. It's suited for
+both the professional and home user, who needs a robust and solid DAW.
 
 %prep
 %setup -q
 %patch0 -p0
+
+# fix permissions
+chmod -x ChangeLog INSTALL TODO
 
 %build
 %cmake_qt4 -DWANT_MP3_DECODE=ON \
@@ -40,10 +43,15 @@ the professional and home user, who needs a robust and solid DAW.
 rm -fr %buildroot
 %makeinstall_std -C build
 
-mkdir -p %{buildroot}%{_iconsbasedir}
-cp -fr resources/freedesktop/icons/* %{buildroot}%{_iconsbasedir}/
+mkdir -p %{buildroot}%{_iconsdir}/hicolor
+cp -r resources/freedesktop/icons/*x* %{buildroot}%{_iconsdir}/hicolor/
 install -D resources/traverso.desktop %{buildroot}%{_datadir}/applications/%{name}.desktop
-install -D resources/x-traverso.xml %{buildroot%{_datadir}/mime/packages/x-traverso.xml
+install -D -m 644 resources/x-traverso.xml %{buildroot}%{_datadir}/mime/packages/x-traverso.xml
+
+desktop-file-install --vendor="" \
+		--remove-key="Encoding" \
+		--remove-key="Path" \
+		--dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/%name.desktop
 
 %clean
 rm -rf %{buildroot}
@@ -54,4 +62,4 @@ rm -rf %{buildroot}
 %{_bindir}/%{name}
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/*.xml
-%{_iconsbasedir}/*/*/*
+%{_iconsdir}/hicolor/*/*/*
