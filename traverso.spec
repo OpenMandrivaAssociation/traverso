@@ -1,9 +1,6 @@
-%define name    traverso
-%define version 0.49.1
-%define release %mkrel 4
-Name:           %{name}
-Version:        %{version}
-Release:        %{release}
+Name:           traverso
+Version:        0.49.2
+Release:        %mkrel 5
 Url:            http://traverso-daw.org/
 License:        GPLv2+ and LGPLv2+
 Group:          Sound
@@ -35,8 +32,8 @@ chmod -x ChangeLog INSTALL TODO
 %cmake_qt4 -DWANT_MP3_DECODE=ON \
            -DWANT_MP3_ENCODE=OFF \
            -DWANT_OPENGL=ON \
-           -DWANT_PORTAUDIO=ON \
-           -DUSE_SYSTEM_SLV2_LIBRARY=ON
+           -DWANT_PORTAUDIO=ON
+#           -DUSE_SYSTEM_SLV2_LIBRARY=ON
 %make
 
 %install
