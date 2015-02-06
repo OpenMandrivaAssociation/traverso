@@ -16,7 +16,7 @@
 
 Name:           traverso
 Version:        0.49.2
-Release:        %mkrel 5
+Release:        6
 Url:            http://traverso-daw.org/
 License:        GPLv2+ and LGPLv2+
 Group:          Sound
